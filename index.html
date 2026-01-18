@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerCore - Building AI Tools in Public</title>
+    <meta name="description" content="Building AI tools in public. Some ship. Some fail. All documented.">
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="PowerCore Build Log" href="/feed.xml">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #f5f5f5;
+            --accent: #00ff88;
+            --border: #e0e0e0;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'DM Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--secondary);
+            color: var(--primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header / Hero */
+        header {
+            margin-bottom: 80px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 40px;
+        }
+
+        .brand {
+            font-family: var(--mono);
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .brand::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .attribution {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 32px;
+        }
+
+        .attribution a {
+            color: var(--primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .attribution a:hover {
+            border-color: var(--accent);
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid var(--primary);
+            background: var(--primary);
+            color: var(--secondary);
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Email Capture Section */
+        .email-section {
+            margin-bottom: 80px;
+            padding: 40px;
+            background: white;
+            border: 2px solid var(--primary);
+        }
+
+        .email-section h2 {
+            font-family: var(--mono);
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .email-section p {
+            color: #666;
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        /* Build Log */
+        .build-log {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: var(--mono);
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .section-title::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .log-entry {
+            margin-bottom: 48px;
+            padding-left: 24px;
+            border-left: 2px solid var(--border);
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.6s forwards;
+        }
+
+        .log-entry:nth-child(1) { animation-delay: 0.1s; }
+        .log-entry:nth-child(2) { animation-delay: 0.2s; }
+        .log-entry:nth-child(3) { animation-delay: 0.3s; }
+        .log-entry:nth-child(4) { animation-delay: 0.4s; }
+        .log-entry:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 8px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .log-date {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .log-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .log-content {
+            color: #444;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .log-next {
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .log-next strong {
+            color: var(--primary);
+            font-style: normal;
+        }
+
+        .log-permalink {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: #999;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .log-permalink:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Links Section */
+        .links-section {
+            padding: 40px;
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .links-section h2 {
+            font-family: var(--mono);
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: var(--accent);
+        }
+
+        .links-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--mono);
+            font-size: 14px;
+        }
+
+        .link-label {
+            color: #999;
+            min-width: 80px;
+        }
+
+        .link-item a {
+            color: var(--secondary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .link-item a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* RSS Badge */
+        .rss-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 12px;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--primary);
+            margin-top: 24px;
+            transition: all 0.2s;
+        }
+
+        .rss-badge:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .rss-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 2px solid var(--border);
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .brand {
+                font-size: 28px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+
+            .email-section,
+            .links-section {
+                padding: 24px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .link-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+
+        /* ConvertKit Form Styling Override */
+        .formkit-form {
+            font-family: var(--sans) !important;
+        }
+
+        .formkit-form input {
+            font-family: var(--mono) !important;
+            border: 2px solid var(--primary) !important;
+            padding: 12px !important;
+            font-size: 14px !important;
+        }
+
+        .formkit-form button {
+            font-family: var(--mono) !important;
+            font-weight: 500 !important;
+            background: var(--primary) !important;
+            border: 2px solid var(--primary) !important;
+            transition: all 0.2s !important;
+        }
+
+        .formkit-form button:hover {
+            background: var(--accent) !important;
+            border-color: var(--accent) !important;
+            color: var(--primary) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="brand">PowerCore</h1>
+            <p class="tagline">Building AI tools in public. Some ship. Some fail. All documented.</p>
+            <p class="attribution">Built by Ian (<a href="https://github.com/ianmxaof" target="_blank" rel="noopener">@ianmxaof</a>)</p>
+            
+            <div class="cta-group">
+                <a href="#email-capture" class="btn">Get build updates</a>
+                <a href="https://powercore.kit.com/products" class="btn btn-secondary" target="_blank" rel="noopener">View products</a>
+            </div>
+        </header>
+
+        <!-- Email Capture -->
+        <section class="email-section" id="email-capture">
+            <h2>Get build updates</h2>
+            <p>Short updates when I ship something worth sharing. No schedule. No spam.</p>
+            
+            <!-- ConvertKit Embed -->
+            <script async data-uid="9f14b22dac" src="https://powercore.kit.com/9f14b22dac/index.js"></script>
+            
+            <a href="/feed.xml" class="rss-badge">
+                <svg class="rss-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 11a9 9 0 0 1 9 9"></path>
+                    <path d="M4 4a16 16 0 0 1 16 16"></path>
+                    <circle cx="5" cy="19" r="1"></circle>
+                </svg>
+                RSS Feed
+            </a>
+        </section>
+
+        <!-- Build Log -->
+        <section class="build-log">
+            <h2 class="section-title">Build Log</h2>
+            
+            <article class="log-entry" id="2026-01-18">
+                <span class="log-date">2026-01-18</span>
+                <h3 class="log-title">Launching powercore.app</h3>
+                <div class="log-content">
+                    <p>Finally shipping a public hub. This connects GitHub, Hugging Face, Gumroad, and X into one place. No more scattered links. This is step zero.</p>
+                    <p>Used ConvertKit for email capture. RSS feed live. Everything is deliberately minimal.</p>
+                </div>
+                <p class="log-next"><strong>Next:</strong> Post first update thread. Document the next build.</p>
+                <a href="#2026-01-18" class="log-permalink">#</a>
+            </article>
+
+            <article class="log-entry" id="2026-01-17">
+                <span class="log-date">2026-01-17</span>
+                <h3 class="log-title">Fixed Hugging Face username</h3>
+                <div class="log-content">
+                    <p>Migrated from archvilefilth to powercoreai. Now everything is under one consistent brand. GitHub stays as ianmxaof since that's my personal account.</p>
+                </div>
+                <p class="log-next"><strong>Next:</strong> Ship the landing page.</p>
+                <a href="#2026-01-17" class="log-permalink">#</a>
+            </article>
+
+            <article class="log-entry" id="2026-01-16">
+                <span class="log-date">2026-01-16</span>
+                <h3 class="log-title">Starting distribution</h3>
+                <div class="log-content">
+                    <p>Spent years building without a public surface. That changes now. The plan: build in public, document everything, practice distribution daily.</p>
+                    <p>Distribution isn't "marketing later" — it's infrastructure from day one.</p>
+                </div>
+                <p class="log-next"><strong>Next:</strong> Create single canonical link for everything.</p>
+                <a href="#2026-01-16" class="log-permalink">#</a>
+            </article>
+        </section>
+
+        <!-- Links -->
+        <section class="links-section">
+            <h2>Find me elsewhere</h2>
+            <div class="links-grid">
+                <div class="link-item">
+                    <span class="link-label">Products</span>
+                    <a href="https://powercoreai.gumroad.com/" target="_blank" rel="noopener">gumroad.com/powercoreai</a>
+                </div>
+                <div class="link-item">
+                    <span class="link-label">Code</span>
+                    <a href="https://github.com/ianmxaof" target="_blank" rel="noopener">github.com/ianmxaof</a>
+                </div>
+                <div class="link-item">
+                    <span class="link-label">Models</span>
+                    <a href="https://huggingface.co/powercoreai" target="_blank" rel="noopener">huggingface.co/powercoreai</a>
+                </div>
+                <div class="link-item">
+                    <span class="link-label">X</span>
+                    <a href="https://x.com/PowerCoreAi" target="_blank" rel="noopener">@PowerCoreAi</a>
+                </div>
+                <div class="link-item">
+                    <span class="link-label">Instagram</span>
+                    <a href="https://instagram.com/powercoreai" target="_blank" rel="noopener">@powercoreai</a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>PowerCore — Building since 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

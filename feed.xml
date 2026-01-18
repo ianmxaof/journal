@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PowerCore Build Log</title>
+    <link>https://powercore.app</link>
+    <description>Building AI tools in public. Some ship. Some fail. All documented.</description>
+    <language>en-us</language>
+    <atom:link href="https://powercore.app/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Launching powercore.app</title>
+      <link>https://powercore.app#2026-01-18</link>
+      <guid>https://powercore.app#2026-01-18</guid>
+      <pubDate>Sat, 18 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[
+        <p>Finally shipping a public hub. This connects GitHub, Hugging Face, Gumroad, and X into one place. No more scattered links. This is step zero.</p>
+        <p>Used ConvertKit for email capture. RSS feed live. Everything is deliberately minimal.</p>
+        <p><strong>Next:</strong> Post first update thread. Document the next build.</p>
+      ]]></description>
+    </item>
+    
+    <item>
+      <title>Fixed Hugging Face username</title>
+      <link>https://powercore.app#2026-01-17</link>
+      <guid>https://powercore.app#2026-01-17</guid>
+      <pubDate>Fri, 17 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[
+        <p>Migrated from archvilefilth to powercoreai. Now everything is under one consistent brand. GitHub stays as ianmxaof since that's my personal account.</p>
+        <p><strong>Next:</strong> Ship the landing page.</p>
+      ]]></description>
+    </item>
+    
+    <item>
+      <title>Starting distribution</title>
+      <link>https://powercore.app#2026-01-16</link>
+      <guid>https://powercore.app#2026-01-16</guid>
+      <pubDate>Thu, 16 Jan 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[
+        <p>Spent years building without a public surface. That changes now. The plan: build in public, document everything, practice distribution daily.</p>
+        <p>Distribution isn't "marketing later" — it's infrastructure from day one.</p>
+        <p><strong>Next:</strong> Create single canonical link for everything.</p>
+      ]]></description>
+    </item>
+  </channel>
+</rss>
